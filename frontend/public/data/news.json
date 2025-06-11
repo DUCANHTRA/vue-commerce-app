@@ -1,0 +1,74 @@
+{
+  "news": [
+    {
+      "id": 1,
+      "date": "2024-03-15",
+      "title": "New Product Launch: Smart Home Series",
+      "content": "We're excited to announce our latest collection of smart home devices, featuring cutting-edge technology and seamless integration with your existing home systems.",
+      "category": "New Products"
+    },
+    {
+      "id": 2,
+      "date": "2024-03-14",
+      "title": "Spring Sale Event",
+      "content": "Don't miss our biggest spring sale event! Up to 50% off on selected items, plus free shipping on orders over $50. Limited time offer.",
+      "category": "Promotions"
+    },
+    {
+      "id": 3,
+      "date": "2024-03-13",
+      "title": "New Payment Methods Added",
+      "content": "We've added more payment options including Apple Pay and Google Pay for a faster and more secure checkout experience.",
+      "category": "Updates"
+    },
+    {
+      "id": 4,
+      "date": "2024-03-12",
+      "title": "Customer Loyalty Program",
+      "content": "Join our new loyalty program and earn points with every purchase. Redeem points for discounts and exclusive member-only deals.",
+      "category": "Programs"
+    },
+    {
+      "id": 5,
+      "date": "2024-03-11",
+      "title": "Free Shipping Policy Update",
+      "content": "We've updated our shipping policy! Now enjoy free shipping on all orders over $30, with no minimum purchase required for members.",
+      "category": "Shipping"
+    },
+    {
+      "id": 6,
+      "date": "2024-03-10",
+      "title": "New Store Locations",
+      "content": "We're expanding! Check out our new physical stores in major cities, offering click-and-collect services and in-store returns.",
+      "category": "Stores"
+    },
+    {
+      "id": 7,
+      "date": "2024-03-09",
+      "title": "Mobile App Update",
+      "content": "Our mobile app has been updated with new features including barcode scanning, wishlist sharing, and real-time order tracking.",
+      "category": "Technology"
+    },
+    {
+      "id": 8,
+      "date": "2024-03-08",
+      "title": "Holiday Shopping Guide",
+      "content": "Plan your holiday shopping with our comprehensive gift guide, featuring top-rated products and special holiday bundles.",
+      "category": "Guides"
+    },
+    {
+      "id": 9,
+      "date": "2024-03-07",
+      "title": "Return Policy Enhancement",
+      "content": "We've made returns even easier with our new 60-day return window and free return shipping for all orders.",
+      "category": "Policies"
+    },
+    {
+      "id": 10,
+      "date": "2024-03-06",
+      "title": "Sustainability Initiative",
+      "content": "Join us in our commitment to sustainability with eco-friendly packaging and carbon-neutral shipping options.",
+      "category": "Sustainability"
+    }
+  ]
+} 
