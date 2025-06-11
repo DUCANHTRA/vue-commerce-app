@@ -85,24 +85,13 @@ Create a `.env` file in the frontend directory with the following variables:
 VITE_STRIPE_PUBLIC_KEY=your_stripe_public_key
 ```
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ## 👥 Authors
 
-- Your Name - Initial work
+- Duc Anh Tran - Initial work
 
 ## 🙏 Acknowledgments
 
 - Vue.js team for the amazing framework
 - Vuetify team for the beautiful UI components
-- Stripe for secure payment processing 
+- Stripe for secure payment processing
+- [Educative.io](https://www.educative.io/projects/e-commerce-store-in-vuejs-with-payment-integration) team for their comprehensive e-commerce project guide and implementation insights 
