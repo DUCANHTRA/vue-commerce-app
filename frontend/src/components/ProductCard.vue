@@ -43,7 +43,7 @@
   
   const fetchLikes = async () => {
     try {
-      const response = await fetch(`/cos30043/s104204233/A3_v1/resource/api_likes.php/product_id/${props.product.id}`);
+      const response = await fetch(`http://localhost:5000/api/products/${props.product._id}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -58,17 +58,15 @@
   
   const handleLike = async () => {
     try {
-      const requestOptions = {
-        method: 'POST',
+      const response = await fetch(
+      `http://localhost:5000/api/products/${props.product._id}/like`,
+      {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          product_id: props.product.id
-        })
-      };
-
-      const response = await fetch('/cos30043/s104204233/A3_v1/resource/api_likes.php', requestOptions);
+          "Content-Type": "application/json"
+        }
+      }
+    );
       
       if (!response.ok) {
         throw new Error('Network response was not ok');

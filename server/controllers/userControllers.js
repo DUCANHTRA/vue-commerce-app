@@ -1,10 +1,10 @@
-const bcrypt = require('bcrypt');
-const User = require("../models/User");
+import bcrypt from 'bcrypt';
+import User from '../models/User.js';
 
 /**
  * Get user by ID (excluding password)
  */
-exports.getUserById = async (req, res) => {
+export const getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id).select('-password'); // exclude password
     if (!user) return res.status(404).json({ success: false, message: 'User not found' });
@@ -17,7 +17,7 @@ exports.getUserById = async (req, res) => {
 /**
  * Register a new user
  */
-exports.registerUser = async (req, res) => {
+export const registerUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
@@ -37,7 +37,7 @@ exports.registerUser = async (req, res) => {
 /**
  * Login user
  */
-exports.loginUser = async (req, res) => {
+export const loginUser = async (req, res) => {
   try {
     const { username, password } = req.body;
 

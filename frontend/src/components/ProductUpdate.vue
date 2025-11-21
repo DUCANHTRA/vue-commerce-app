@@ -116,52 +116,62 @@ export default {
     }
   },
   methods: {
-    fetchProduct() {
-      if (this.productId) {
-        fetch(`/cos30043/s104204233/A3_v1/resource/api1.php/id/${this.productId}`)
-          .then(response => response.json())
-          .then(data => {
-            if (data && data.length > 0) {
-              this.product = data[0]
-            } else {
-              //toast implementation
-              toast.error('Product not found.');
-              
-              this.reset();
-            }
-          })
-          .catch(error => {
-            console.error('Error:', error);
-            //toast implementation
-            toast.error('Error fetching product.');
-            
-          })
-      }
-    },
-    updateProduct() {
-      if (this.$refs.form.validate() && this.productId) {
-        const requestOptions = {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(this.product)
+    async fetchProduct() {
+      if (!this.productId) return;
+
+      try {
+        const response = await fetch(`http://localhost:5000/api/products/${this.productId}`);
+
+        if (!response.ok) {
+          const errData = await response.json();
+          throw new Error(errData.message || `Server error: ${response.status}`);
         }
 
-        fetch(`/cos30043/s104204233/A3_v1/resource/api1.php/id/${this.productId}`, requestOptions)
-          .then(response => response.text())
-          .then(data => {
-            //toast implementation
-            toast.success('Product updated successfully.');
+        const data = await response.json();
 
-            
-          })
-          .catch(error => {
-            console.error('Error:', error);
-            //toast implementation
-            toast.error('Error updating product.');
-            
-          })
+        if (!data || !data._id) {
+          toast.error("Product not found.");
+          this.reset();
+          return;
+        }
+
+        // Assign product object to local state
+        this.product = data;
+        console.log("Fetched product:", data);
+
+      } catch (error) {
+        console.error("Error fetching product:", error);
+        toast.error("Error fetching product.");
+        this.reset();
+      }
+    },
+    async updateProduct() {
+      if (!this.$refs.form.validate() || !this.productId) return;
+
+      try {
+        const response = await fetch(
+          `http://localhost:5000/api/products/${this.productId}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(this.product)
+          }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+          throw new Error(data.message || "Failed to update product");
+        }
+
+        toast.success("Product updated successfully.");
+        console.log("Updated product:", data.product);
+
+      } catch (error) {
+        console.error("Error updating product:", error);
+        toast.error("Error updating product.");
       }
     },
     reset() {

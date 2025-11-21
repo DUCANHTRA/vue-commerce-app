@@ -1,6 +1,6 @@
-const dotenv = require("dotenv");
-const connectDB = require("./config/db");
-const app = require("./app");
+import dotenv from 'dotenv';
+import connectDB from './config/db.js';
+import app from './app.js';
 
 //Entry Point
 
@@ -10,7 +10,6 @@ dotenv.config();
 connectDB();
 
 const PORT = process.env.PORT || 5000;
-
 
 //Start the server on the specified port
 app.listen(PORT, () => {

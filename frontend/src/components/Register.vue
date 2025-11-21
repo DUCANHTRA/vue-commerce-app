@@ -93,7 +93,7 @@ export default {
       if (!this.$refs.form.validate()) return;
 
       try {
-        const response = await fetch('/cos30043/s104204233/A3_v1/resource/api2_user.php', {
+        const response = await fetch('http://localhost:5000/api/users/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

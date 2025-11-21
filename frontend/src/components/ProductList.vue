@@ -137,27 +137,32 @@ export default {
     async fetchProducts() {
       this.loading = true;
       this.error = null;
-      
+
       try {
-        const url = '/cos30043/s104204233/A3_v1/resource/api3.php';
-        
-        const response = await fetch(url);
+        const url = "http://localhost:5000/api/products"; // Fetch all products
+
+        const response = await fetch("http://localhost:5000/api/products");
+
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          const errData = await response.json();
+          throw new Error(errData.message || "Network response was not ok");
         }
-        
+
         const result = await response.json();
-        
+
         if (result.success && Array.isArray(result.data)) {
           this.products = result.data;
           this.filteredProducts = result.data;
           this.currentPage = 1;
+          console.log("Fetched products:", result.data);
         } else {
-          throw new Error('Invalid response format');
+          throw new Error("Invalid response format from server");
         }
+
+
       } catch (error) {
-        console.error('Error fetching products:', error);
-        this.error = 'Failed to load products. Please try again later.';
+        console.error("Error fetching products:", error);
+        this.error = "Failed to load products. Please try again later.";
         this.products = [];
         this.filteredProducts = [];
       } finally {
@@ -166,31 +171,34 @@ export default {
     },
 
     //Why is this function here ?
-    deleteProduct() {
-      if (this.$refs.form.validate() && this.productId) {
-        if (confirm('Are you sure you want to delete this product?')) {
-          const requestOptions = {
-            method: 'DELETE',
+    async deleteProduct() {
+      if (!this.$refs.form.validate() || !this.productId) return;
+
+      if (!confirm("Are you sure you want to delete this product?")) return;
+
+      try {
+        const response = await fetch(
+          `http://localhost:5000/api/products/${this.productId}`,
+          {
+            method: "DELETE",
             headers: {
-              'Content-Type': 'application/json'
+              "Content-Type": "application/json"
             }
           }
+        );
 
-          fetch(`/cos30043/s104204233/A3_v1/resource/api1.php/id/${this.productId}`, requestOptions)
-            .then(response => response.json())
-            .then(data => {
-              if (data.success) {
-                alert('Product deleted successfully!')
-                this.reset()
-              } else {
-                throw new Error(data.message || 'Failed to delete product')
-              }
-            })
-            .catch(error => {
-              console.error('Error:', error)
-              alert('Error deleting product: ' + error.message)
-            })
+        const data = await response.json();
+
+        if (data.success) {
+          alert("Product deleted successfully!");
+          this.reset();
+        } else {
+          throw new Error(data.message || "Failed to delete product");
         }
+
+      } catch (error) {
+        console.error("Error deleting product:", error);
+        alert("Error deleting product: " + error.message);
       }
     }
   },

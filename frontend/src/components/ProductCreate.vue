@@ -105,57 +105,44 @@ export default {
     }
   },
   methods: {
-    createProduct() {
-      if (this.$refs.form.validate()) {
-        const requestOptions = {
-          method: 'POST',
+    async createProduct() {
+      if (!this.$refs.form.validate()) return;
+
+      try {
+        const response = await fetch("http://localhost:5000/api/products", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
           },
           body: JSON.stringify(this.product)
+        });
+
+        if (!response.ok) {
+          const errData = await response.json();
+          throw new Error(errData.message || "Failed to create product");
         }
 
-        fetch('/cos30043/s104204233/A3_v1/resource/api1.php', requestOptions)
-          .then(response => response.text())
-          .then(data => {
-            console.log('Product creation response:', data);
-            // Parse the response to get the new product ID
-            const newProduct = JSON.parse(data);
-            if (newProduct && newProduct.id) {
-              console.log('New product created with ID:', newProduct.id);``
-              // Create likes entry for the new product
-              const likesRequestOptions = {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ product_id: newProduct.id })
-              };
+        const newProduct = await response.json();
 
-              return fetch('/cos30043/s104204233/A3_v1/resource/api_likes.php', likesRequestOptions)
-                .then(response => response.json())
-                .then(likesData => {
+        console.log("Product creation response:", newProduct);
 
-                  //Added console logging for respone
-                  console.log('Likes initialization response:', likesData);
+        // Backend returns: { success: true, id: '...' }
+        if (newProduct && newProduct.id) {
+          toast.success("Product created successfully!");
+          this.$refs.form.reset();
 
-                  if (likesData.success) {
-                    this.$refs.form.reset();
-                    toast.success('Product created successfully!');
-                  } else {
-                    throw new Error(likesData.message || 'Failed to initialize likes');
-                  }
-                });
-            } else {
-              throw new Error('Failed to get new product ID');
-            }
-          })
-          .catch(error => {
-            console.error('Error:', error);
-            toast.error(error.message || 'Error creating product');
-          });
+          // likes are already initialized in backend, no extra request needed
+          console.log("New product ID:", newProduct.id);
+        } else {
+          throw new Error("Failed to get new product ID");
+        }
+
+      } catch (error) {
+        console.error("Error creating product:", error);
+        toast.error(error.message || "Error creating product");
       }
     },
+
     reset() {
       this.$refs.form.reset()
     }

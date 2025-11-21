@@ -55,96 +55,64 @@ export default {
     }
   },
   methods: {
-    fetchProduct() {
+    async fetchProduct() {
       if (!this.productId) return;
-      // '/cos30043/s104204233/A3_v1/resource/api1.php/id/${this.productId}
 
-      fetch(`/cos30043/s104204233/A3_v1/resource/api1.php/id/${this.productId}`)
-        .then(async response => {
-          const text = await response.text();
-          let data;
-          try {
-            data = JSON.parse(text);
-          } catch (e) {
-            console.error('Raw server response:', text);
-            throw new Error(`Invalid response format from server: ${e.message}`);
-          }
+      try {
+        const response = await fetch(`http://localhost:5000/api/products/${this.productId}`);
 
-          if (!response.ok) {
-            throw new Error(data.message || `Server error: ${response.status}`);
-          }
+        if (!response.ok) {
+          const errData = await response.json();
+          throw new Error(errData.message || `Server error: ${response.status}`);
+        }
 
-          if (!Array.isArray(data)) {
-            throw new Error('Expected array response from server');
-          }
+        const data = await response.json();
 
-          return data;
-        })
-        .then(data => {
-          if (data && data.length > 0) {
-            this.product = data[0];
-          } else {
-            //toast implementation
-            toast.error('Product not found.');
-            
-            this.reset();
-          }
-        })
-        .catch(error => {
-          console.error('Error details:', error);
-          //toast implementation
-          toast.error('Error fetching product.');
-          
-        });
+        if (!data || !data._id) {
+          toast.error("Product not found.");
+          this.reset();
+          return;
+        }
+
+        // Assign product object to local state
+        this.product = data;
+        console.log("Fetched product:", data);
+
+      } catch (error) {
+        console.error("Error fetching product:", error);
+        toast.error("Error fetching product.");
+        this.reset();
+      }
     },
-    deleteProduct() {
+    async deleteProduct() {
       if (!this.$refs.form.validate() || !this.productId) return;
 
-      if (confirm('Are you sure you want to delete this product?')) {
-        const requestOptions = {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            id: this.productId
-          })
-        };
+      if (!confirm("Are you sure you want to delete this product?")) return;
 
-        fetch(`/cos30043/s104204233/A3_v1/resource/api1.php/id/${this.productId}`, requestOptions)
-          .then(async response => {
-            const text = await response.text();
-            let data;
-            try {
-              data = JSON.parse(text);
-            } catch (e) {
-              console.error('Raw server response:', text);
-              throw new Error(`Invalid response format from server: ${e.message}`);
+      try {
+        const response = await fetch(
+          `http://localhost:5000/api/products/${this.productId}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json"
             }
+          }
+        );
 
-            if (!response.ok) {
-              throw new Error(data.message || `Server error: ${response.status}`);
-            }
+        const data = await response.json();
 
-            return data;
-          })
-          .then(data => {
-            if (data.success) {
-              //toast implementation
-              toast.success('Product deleted successfully.');
-              
-              
-              this.reset();
-            } else {
-              throw new Error(data.message || 'Deletion failed.');
-            }
-          })
-          .catch(error => {
-            console.error('Error details:', error);
-            //toast implementation
-            toast.error('Error deleting product.');
-            
-          });
+        if (!response.ok || !data.success) {
+          throw new Error(data.message || `Deletion failed with status ${response.status}`);
+        }
+
+        // Success
+        toast.success("Product deleted successfully.");
+        this.reset();
+
+      } catch (error) {
+        console.error("Error deleting product:", error);
+        toast.error("Error deleting product.");
       }
     },
     reset() {

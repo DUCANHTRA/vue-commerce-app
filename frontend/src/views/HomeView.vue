@@ -17,17 +17,20 @@ export default {
   methods: {
     async getCategories() {
       try {
-        let response = await fetch("/cos30043/s104204233/A3_v1/resource/api3.php?categories=true");
+        let response = await fetch("http://localhost:5000/api/products");
         let data = await response.json();
-        console.log('Received categories:', data);
+        console.log('Received products:', data);
+
         if (data.success && data.data) {
-          this.categories = data.data;
+          // Extract unique categories
+          const uniqueCategories = [...new Set(data.data.map(p => p.category))];
+          this.categories = uniqueCategories;
         } else {
-          console.error('No categories data received');
+          console.error('No product data received');
           this.categories = [];
         }
       } catch (error) {
-        console.error("Error fetching categories:", error);
+        console.error("Error fetching products:", error);
         this.categories = [];
       }
     }
@@ -40,9 +43,10 @@ export default {
     <h1 class="my-4 text-center display-4 fw-bold">Shop</h1>
 
     <!--v pass and render category-->
-    <div v-for="category in categories" :key="category.category">
-      <ProductsCategory :category="category.category" show-more-btn />
+    <div v-for="category in categories" :key="category">
+      <ProductsCategory :category="category" show-more-btn />
     </div>
+
 
   </main>
 </template>

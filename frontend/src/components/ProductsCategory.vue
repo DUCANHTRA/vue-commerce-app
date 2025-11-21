@@ -164,7 +164,7 @@ export default {
     async getProducts() {
         try {
             this.error = null;
-            let url = `/cos30043/s104204233/A3_v1/resource/api3.php?category=${encodeURIComponent(this.category)}`;
+            let url = `http://localhost:5000/api/products?category=${encodeURIComponent(this.category)}`;
             console.log('Attempting to fetch from URL:', url);
 
             if (this.showMoreBtn) {
