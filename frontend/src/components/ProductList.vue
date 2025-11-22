@@ -61,7 +61,7 @@
                       <div class="text-caption text-truncate">{{ product.description }}</div>
                       <div class="text-caption">Category: {{ product.category }}</div>
                       <div class="text-caption">Rating: {{ product.rating_rate }} ({{ product.rating_count }} reviews)</div>
-                      <div class="text-caption text-grey">ID: {{ product.id }}</div>
+                      <div class="text-caption text-grey">ID: {{ product._id }}</div>
                     </v-card-text>
                   </v-card>
                 </v-col>

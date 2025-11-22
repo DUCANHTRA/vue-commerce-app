@@ -7,7 +7,7 @@
             <v-text-field
               v-model="productId"
               label="Product ID"
-              type="number"
+              type="text"
               required
               @change="fetchProduct"
             ></v-text-field>
@@ -56,7 +56,7 @@
 
           <v-col cols="12" md="6">
             <v-text-field
-              v-model="product.rating_rate"
+              v-model="product.rating.rate"
               label="Rating"
               type="number"
               step="0.1"
@@ -66,7 +66,7 @@
 
           <v-col cols="12" md="6">
             <v-text-field
-              v-model="product.rating_count"
+              v-model="product.rating.count"
               label="Rating Count"
               type="number"
               required

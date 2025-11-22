@@ -7,7 +7,7 @@
             <v-text-field
               v-model="productId"
               label="Product ID"
-              type="number"
+              type="text"
               required
               @change="fetchProduct"
             ></v-text-field>
@@ -19,7 +19,7 @@
               <v-card-text>
                 <p><strong>Price:</strong> ${{ product.price }}</p>
                 <p><strong>Category:</strong> {{ product.category }}</p>
-                <p><strong>Rating:</strong> {{ product.rating_rate }} ({{ product.rating_count }} reviews)</p>
+                <p><strong>Rating:</strong> {{ product.rating.rate }} ({{ product.rating.count }} reviews)</p>
               </v-card-text>
             </v-card>
           </v-col>
@@ -60,6 +60,7 @@ export default {
 
       try {
         const response = await fetch(`http://localhost:5000/api/products/${this.productId}`);
+
 
         if (!response.ok) {
           const errData = await response.json();
