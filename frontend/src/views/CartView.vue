@@ -44,7 +44,7 @@
 
             <td class="py-4 px-4">
               <!--removeFromCart function in the click event -->
-              <i @click="cartStore.removeFromCart(product.id)" class="bi bi-x-lg cursor-pointer"></i>
+              <i @click="cartStore.removeFromCart(product._id)" class="bi bi-x-lg cursor-pointer"></i>
             </td>
           </tr>
         </tbody>

@@ -8,10 +8,10 @@ export const useCartStore = defineStore("cart", {
   actions: {
     //addtoCart from ProductCard.vue
     addToCart(product) {
-      const productExists = this.cart.filter((item) => item.id === product.id);
+      const productExists = this.cart.filter((item) => item._id === product._id);
       
       if (productExists.length > 0) {
-        this.addQty(product.id);
+        this.addQty(product._id);
       } else {
         this.cart = [{ ...product, quantity: 1 }, ...this.cart];
         this.saveCart();
@@ -19,14 +19,14 @@ export const useCartStore = defineStore("cart", {
     },
 
 
-    removeFromCart(id) {
-      this.cart = this.cart.filter(item => item.id !== id); // Remove item with matching ID
+    removeFromCart(_id) {
+      this.cart = this.cart.filter(item => item._id !== _id); // Remove item with matching ID
       this.saveCart();
     },
 
 
-    addQty(id) {
-      const productIndex = this.cart.findIndex(item => item.id === id);
+    addQty(_id) {
+      const productIndex = this.cart.findIndex(item => item._id === _id);
 
       this.cart = this.cart.map((item, i) => ({
         ...item,
@@ -36,8 +36,8 @@ export const useCartStore = defineStore("cart", {
     },
 
 
-    reduceQty(id) {
-      const productIndex = this.cart.findIndex(item => item.id === id);
+    reduceQty(_id) {
+      const productIndex = this.cart.findIndex(item => item._id === _id);
 
       this.cart = this.cart.map((product, i) => ({
         ...product,

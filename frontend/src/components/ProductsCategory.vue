@@ -140,10 +140,10 @@ export default {
           filtered.sort((a, b) => b.price - a.price);
           break;
         case 'name_asc':
-          filtered.sort((a, b) => a.name.localeCompare(b.title));
+          filtered.sort((a, b) => a.title.localeCompare(b.title));
           break;
         case 'name_desc':
-          filtered.sort((a, b) => b.name.localeCompare(a.title));
+          filtered.sort((a, b) => b.title.localeCompare(a.title));
           break;
         default:
           // Keep original order
