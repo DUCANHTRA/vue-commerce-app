@@ -35,6 +35,7 @@
 
 <script>
 import { useCartStore } from "../stores/cart";
+import { computed } from "vue";
 
 export default {
   name: 'Navigation',
@@ -44,41 +45,25 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      cartCount: 0
-    }
+  setup() {
+    const cartStore = useCartStore();
+
+    // reactive cart count
+    const cartCount = computed(() => cartStore.cart.length);
+
+    return { cartCount };
   },
   methods: {
-    updateCartCount() {
-      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      this.cartCount = cart.length;
-    },
     handleLogout() {
       localStorage.removeItem('isAuthenticated');
       localStorage.removeItem('user');
       this.$emit('authenticated', false);
       this.$router.push({ name: 'login' });
-    },
-    //Delete this
-    /*
-    updateAuthStatus(status) {
-      this.isAuthenticated = status;
-      localStorage.setItem('isAuthenticated', status);
     }
-    */
-  },
-  mounted() {
-    this.updateCartCount();
-    //Delete this
-    //this.updateAuthStatus(localStorage.getItem('isAuthenticated') === 'true');
-    window.addEventListener('storage', this.updateCartCount);
-  },
-  beforeUnmount() {
-    window.removeEventListener('storage', this.updateCartCount);
   }
 }
 </script>
+
 
 <style scoped>
 .navigation {
