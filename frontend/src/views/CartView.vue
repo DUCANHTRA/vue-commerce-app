@@ -16,7 +16,7 @@
         </thead>
 
         <tbody>
-          <tr v-for="product in cartStore.cart" :key="product.id">
+          <tr v-for="product in cartStore.cart" :key="product._id">
 
             <th scope="row" class="py-4 px-4">
               <img :src="product.image" :alt="product.title" class="img-fluid" style="max-height: 100px;" />
@@ -30,10 +30,10 @@
             <td class="py-4 px-4 fw-bold">
               <!--ReduceQty from cart.js -->
 
-              <i @click="cartStore.reduceQty(product.id)" class="bi bi-dash-lg me-3 cursor-pointer"></i>
+              <i @click="cartStore.reduceQty(product._id)" class="bi bi-dash-lg me-3 cursor-pointer"></i>
               <span>{{ product.quantity }}</span>
               <!--AddQty from cart.js -->
-              <i @click="cartStore.addQty(product.id)" class="bi bi-plus-lg ms-3 cursor-pointer"></i>
+              <i @click="cartStore.addQty(product._id)" class="bi bi-plus-lg ms-3 cursor-pointer"></i>
             </td>
 
             <td class="py-4 px-4 fw-bold">
