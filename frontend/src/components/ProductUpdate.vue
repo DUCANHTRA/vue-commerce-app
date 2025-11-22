@@ -100,21 +100,23 @@ import { toast } from '../utils/toast'
 
 export default {
   name: 'ProductUpdate',
+  //Data
   data() {
     return {
       valid: false,
       productId: '',
       product: {
-        title: '',
-        price: '',
-        description: '',
-        category: '',
-        image: '',
-        rating_rate: '',
-        rating_count: ''
+      title: '',
+      price: 0,
+      description: '',
+      category: '',
+      image: '',
+      rating: { rate: 0, count: 0 }
       }
     }
   },
+
+  //Method
   methods: {
     async fetchProduct() {
       if (!this.productId) return;

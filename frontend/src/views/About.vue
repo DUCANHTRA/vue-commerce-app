@@ -82,7 +82,7 @@
 
             <div class="mt-4">
               <img 
-                :src="selectedImage === 'mountain' ? '/cos30043/s104204233/A3_v1/images/mountain.jpg' : '/cos30043/s104204233/A3_v1/images/ocean.jpg'" 
+                :src="selectedImage === 'mountain' ? '../images/mountain.jpg' : '../images/ocean.jpg'" 
                 :alt="selectedImage === 'mountain' ? 'Premium Collection' : 'Budget Friendly'"
                 class="img-fluid rounded shadow-sm"
               />

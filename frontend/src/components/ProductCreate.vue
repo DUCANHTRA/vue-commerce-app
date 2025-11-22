@@ -94,13 +94,12 @@ export default {
     return {
       valid: false,
       product: {
-        title: '',
-        price: '',
-        description: '',
-        category: '',
-        image: '',
-        rating_rate: '',
-        rating_count: ''
+      title: '',
+      price: 0,
+      description: '',
+      category: '',
+      image: '',
+      rating: { rate: 0, count: 0 }
       }
     }
   },

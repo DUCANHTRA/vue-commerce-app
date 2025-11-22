@@ -139,8 +139,9 @@ export default {
       this.error = null;
 
       try {
-        const url = "http://localhost:5000/api/products"; // Fetch all products
-
+        //const url = "http://localhost:5000/api/products"; 
+        
+        // Fetch all products
         const response = await fetch("http://localhost:5000/api/products");
 
         if (!response.ok) {
