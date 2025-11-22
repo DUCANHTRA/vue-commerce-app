@@ -44,48 +44,52 @@
   const fetchLikes = async () => {
     try {
       const response = await fetch(`http://localhost:5000/api/products/${props.product._id}`);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
+      if (!response.ok) throw new Error('Network response was not ok');
+
       const data = await response.json();
-      if (data && data.length > 0) {
-        likesCount.value = data[0].likes_count;
+
+      // Backend returns the product directly
+      if (data && data.likes !== undefined) {
+        likesCount.value = data.likes;
+      } else if (data && data.product && data.product.likes !== undefined) {
+        // fallback if product is nested
+        likesCount.value = data.product.likes;
+      } else {
+        console.warn('Likes field not found in response:', data);
       }
     } catch (error) {
       console.error('Error fetching likes:', error);
     }
   };
-  
+
   const handleLike = async () => {
     try {
       const response = await fetch(
-      `http://localhost:5000/api/products/${props.product._id}/like`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
+        `http://localhost:5000/api/products/${props.product._id}/like`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" }
         }
-      }
-    );
-      
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      
+      );
+
+      if (!response.ok) throw new Error('Network response was not ok');
+
       const data = await response.json();
-      if (data && data.likes_count !== undefined) {
-        likesCount.value = data.likes_count;
+
+      // Use correct path based on backend
+      if (data && data.product && data.product.likes !== undefined) {
+        likesCount.value = data.product.likes;
         isLiked.value = true;
-        // Optional: Add success feedback
-        
       } else {
-        throw new Error('Invalid response format');
+        console.error('Invalid response format:', data);
       }
     } catch (error) {
       console.error('Error liking product:', error);
       alert('Error liking product. Please try again.');
     }
   };
+
+
   
   onMounted(() => {
     fetchLikes();
