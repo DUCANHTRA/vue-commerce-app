@@ -1,3 +1,4 @@
+//config/db.js
 import mongooes from 'mongoose';
 
 const connectDB = async () => {
