@@ -54,9 +54,8 @@
       Total: ${{ cartStore.total }}
       <!--write the total getter here -->
     </p>
-    <div id="card-container" class="w-50 mx-auto"></div>
     <button
-      class="btn btn-primary text-uppercase float-end mb-3"
+      class="btn btn-primary text-uppercase mb-3"
       @click="submit"
     >
       Proceed to checkout
@@ -79,144 +78,54 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
 import { toast } from "../utils/toast";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useCartStore } from "../stores/cart";
+import { useRouter } from 'vue-router';
 
 const cartStore = useCartStore();
-let card;
-const appId = "<Add App ID here>";
-const locationId = "<Add location ID here>";
+const router = useRouter();
 
-//InitializeCard() function
-async function initializeCard(payments) {
-const card = await payments.card();
-
-await card.attach("#card-container");
-
-return card;
-}
-
-onMounted(async () => {
-  if (!Square) {
-   throw new Error("Square.js failed to load properly");
- }
-
- const payments = Square.payments(appId, locationId);
-
- try {
-   card = await initializeCard(payments);
- } catch (e) {
-   console.error("Initializing Card failed", e);
-   return;
- }
-});
-
-async function tokenize(paymentMethod) {
-  //Update tokenization
-  const tokenResult = await 
-    paymentMethod.tokenize();
-    if (tokenResult.status === "OK") {
-    return tokenResult.token;
-    } else {
-    let errorMessage = `Tokenization failed with 
-    status: ${tokenResult.status}`;
-    if (tokenResult.errors) {
-    errorMessage += ` and errors: 
-    ${JSON.stringify(tokenResult.errors)}`;
-    }
-
-    throw new Error(errorMessage);
-    }
-}
-
-// status is either SUCCESS or FAILURE;
-function displayPaymentResults(status) {
-  if (status === "SUCCESS") {
-    toast.success("Transaction Successful");
-  } else {
-    toast.error("Transaction Failed");
+const submit = async () => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (!user) {
+    toast.error("Please login to place an order.");
+    router.push({ name: 'login' });
+    return;
   }
-}
 
-const submit = async function (event) {
-  event.preventDefault();
+  const orderItems = cartStore.cart.map(item => ({
+    product: item._id,
+    quantity: item.quantity,
+    price: item.price
+  }));
 
-  const token = await tokenize(card);
-
-  // Old payment processing code
-  /*
-  fetch("http://0.0.0.0:3000/payment", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      locationId,
-      sourceId: token,
-      total: cartStore.total,
-    }),
-    })
-    .then((res) => res.json())
-    .then((paymentResults) => {
-      console.debug("Payment Success", 
-    paymentResults);
-      cartStore.emptyCart();
-      displayPaymentResults("SUCCESS");
-    })
-    .catch(async (e) => {
-      console.error(e.message);
-      displayPaymentResults("FAILURE");
-  });
-  */
-
-  // New payment processing code with database update
   try {
-    // First process the payment
-    const paymentResponse = await fetch("http://0.0.0.0:3000/payment", {
+    const response = await fetch("http://localhost:5000/api/orders", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        locationId,
-        sourceId: token,
+        user: user.user.id,
+        items: orderItems,
         total: cartStore.total,
-      }),
+        shippingAddress: "123 Main St, Anytown, USA" // Placeholder
+      })
     });
 
-    const paymentResults = await paymentResponse.json();
-    
-    if (paymentResults.success) {
-      // If payment successful, update database
-      const dbResponse = await fetch("resource/api_square.php", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          locationId,
-          sourceId: token,
-          total: cartStore.total,
-          cartItems: cartStore.cart
-        }),
-      });
+    const data = await response.json();
 
-      const dbResults = await dbResponse.json();
-      
-      if (dbResults.success) {
-        cartStore.emptyCart();
-        displayPaymentResults("SUCCESS");
-      } else {
-        throw new Error(dbResults.error || "Database update failed");
-      }
+    if (data.success) {
+      cartStore.emptyCart();
+      toast.success("Order placed successfully!");
+      router.push({ name: 'home' });
     } else {
-      throw new Error("Payment processing failed");
+      throw new Error(data.message || "Failed to place order");
     }
   } catch (error) {
-    console.error(error.message);
-    displayPaymentResults("FAILURE");
+    console.error("Error placing order:", error);
+    toast.error(error.message || "Error placing order");
   }
 };
 </script>

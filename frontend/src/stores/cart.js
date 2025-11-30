@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { toast } from "../utils/toast";
 
 export const useCartStore = defineStore("cart", {
   state: () => ({
@@ -8,13 +9,19 @@ export const useCartStore = defineStore("cart", {
   actions: {
     //addtoCart from ProductCard.vue
     addToCart(product) {
-      const productExists = this.cart.filter((item) => item._id === product._id);
+      if (product.stock <= 0) {
+        toast.error("Product is out of stock");
+        return;
+      }
+
+      const productExists = this.cart.find((item) => item._id === product._id);
       
-      if (productExists.length > 0) {
+      if (productExists) {
         this.addQty(product._id);
       } else {
-        this.cart = [{ ...product, quantity: 1 }, ...this.cart];
+        this.cart.unshift({ ...product, quantity: 1 });
         this.saveCart();
+        toast.success("Product added to cart");
       }
     },
 
@@ -27,23 +34,29 @@ export const useCartStore = defineStore("cart", {
 
     addQty(_id) {
       const productIndex = this.cart.findIndex(item => item._id === _id);
-
-      this.cart = this.cart.map((item, i) => ({
-        ...item,
-        quantity: item.quantity + (productIndex === i ? 1 : 0),
-      }));
-      this.saveCart();
+      if (productIndex !== -1) {
+        const product = this.cart[productIndex];
+        if (product.quantity < product.stock) {
+          this.cart[productIndex].quantity++;
+          this.saveCart();
+        } else {
+          toast.error("Cannot add more than available stock");
+        }
+      }
     },
 
 
     reduceQty(_id) {
       const productIndex = this.cart.findIndex(item => item._id === _id);
 
-      this.cart = this.cart.map((product, i) => ({
-        ...product,
-        quantity: product.quantity - (productIndex === i && product.quantity > 1 ? 1 : 0),
-      }));
-      this.saveCart();
+      if (productIndex !== -1) {
+        if (this.cart[productIndex].quantity > 1) {
+          this.cart[productIndex].quantity--;
+        } else {
+          this.removeFromCart(_id);
+        }
+        this.saveCart();
+      }
     },
 
 

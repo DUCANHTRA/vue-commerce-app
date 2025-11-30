@@ -11,7 +11,8 @@ const ProductSchema = new mongoose.Schema({
     rate: Number,
     count: Number
   },
-  likes: { type: Number, default: 0 }  // ← NEW
+  likes: { type: Number, default: 0 },  // ← NEW
+  stock: { type: Number, required: true, default: 0 }
 }, { timestamps: true });
 
 const Product = mongoose.model('Product', ProductSchema);

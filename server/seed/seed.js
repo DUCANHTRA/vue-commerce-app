@@ -59,7 +59,8 @@ const seedData = async () => {
     category: "men's clothing",
     image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
     rating: { rate: 3.9, count: 120 },
-    likes: 0
+    likes: 0,
+    stock: 100
   },
   {
     title: "Mens Casual Premium Slim Fit T-Shirts",
@@ -68,7 +69,8 @@ const seedData = async () => {
     category: "men's clothing",
     image: "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
     rating: { rate: 4.1, count: 259 },
-    likes: 0
+    likes: 0,
+    stock: 100
   },
   {
     title: "Mens Cotton Jacket",
@@ -77,7 +79,8 @@ const seedData = async () => {
     category: "men's clothing",
     image: "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg",
     rating: { rate: 4.7, count: 500 },
-    likes: 0
+    likes: 0,
+    stock: 100
   },
   {
     title: "Mens Casual Slim Fit",
@@ -86,7 +89,8 @@ const seedData = async () => {
     category: "men's clothing",
     image: "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
     rating: { rate: 2.1, count: 430 },
-    likes: 0
+    likes: 0,
+    stock: 100
   },
   {
     title: "John Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Bracelet",
@@ -95,7 +99,8 @@ const seedData = async () => {
     category: "jewelery",
     image: "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg",
     rating: { rate: 4.6, count: 400 },
-    likes: 0
+    likes: 0,
+    stock: 100
   },
   {
     title: "Solid Gold Petite Micropave",
@@ -104,7 +109,8 @@ const seedData = async () => {
     category: "jewelery",
     image: "https://fakestoreapi.com/img/61sbMiUnoGL._AC_UL640_QL65_ML3_.jpg",
     rating: { rate: 3.9, count: 70 },
-    likes: 0
+    likes: 0,
+    stock: 100
   },
   {
     title: "White Gold Plated Princess",
@@ -113,7 +119,8 @@ const seedData = async () => {
     category: "jewelery",
     image: "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg",
     rating: { rate: 3.0, count: 400 },
-    likes: 0
+    likes: 0,
+    stock: 100
   },
   {
     title: "Pierced Owl Rose Gold Plated Stainless Steel Double",
@@ -122,7 +129,8 @@ const seedData = async () => {
     category: "jewelery",
     image: "https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg",
     rating: { rate: 1.9, count: 100 },
-    likes: 0
+    likes: 0,
+    stock: 100
   },
   {
     title: "WD 2TB Elements Portable External Hard Drive - USB 3.0",
@@ -131,7 +139,8 @@ const seedData = async () => {
     category: "electronics",
     image: "https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg",
     rating: { rate: 3.3, count: 203 },
-    likes: 0
+    likes: 0,
+    stock: 100
   },
   {
     title: "SanDisk SSD PLUS 1TB Internal SSD - SATA III 6 Gb/s",
@@ -140,7 +149,8 @@ const seedData = async () => {
     category: "electronics",
     image: "https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg",
     rating: { rate: 2.9, count: 470 },
-    likes: 0
+    likes: 0,
+    stock: 100
   },
   {
     title: "Silicon Power 256GB SSD 3D NAND A55 SLC Cache Performance Boost SATA III 2.5",
@@ -149,7 +159,8 @@ const seedData = async () => {
     category: "electronics",
     image: "https://fakestoreapi.com/img/71kWymZ+c+L._AC_SX679_.jpg",
     rating: { rate: 4.8, count: 319 },
-    likes: 0
+    likes: 0,
+    stock: 100
   },
   {
     title: "WD 4TB Gaming Drive Works with Playstation 4 Portable External Hard Drive",
@@ -158,7 +169,8 @@ const seedData = async () => {
     category: "electronics",
     image: "https://fakestoreapi.com/img/61mtL65D4cL._AC_SX679_.jpg",
     rating: { rate: 4.8, count: 400 },
-    likes: 0
+    likes: 0,
+    stock: 100
   },
   {
     title: "Acer SB220Q bi 21.5 inches Full HD (1920 x 1080) IPS Ultra-Thin",
@@ -167,7 +179,8 @@ const seedData = async () => {
     category: "electronics",
     image: "https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg",
     rating: { rate: 2.9, count: 250 },
-    likes: 0
+    likes: 0,
+    stock: 100
   },
   {
     title: "Samsung 49-Inch CHG90 144Hz Curved Gaming Monitor (LC49HG90DMNXZA) – Super Ultrawide Screen QLED",
@@ -176,7 +189,8 @@ const seedData = async () => {
     category: "electronics",
     image: "https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg",
     rating: { rate: 2.2, count: 140 },
-    likes: 0
+    likes: 0,
+    stock: 100
   },
   {
     title: "BIYLACLESEN Women's 3-in-1 Snowboard Jacket Winter Coats",
@@ -185,7 +199,8 @@ const seedData = async () => {
     category: "women's clothing",
     image: "https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg",
     rating: { rate: 2.6, count: 235 },
-    likes: 0
+    likes: 0,
+    stock: 100
   },
   {
     title: "Lock and Love Women's Removable Hooded Faux Leather Moto Biker Jacket",
@@ -194,7 +209,8 @@ const seedData = async () => {
     category: "women's clothing",
     image: "https://fakestoreapi.com/img/81XH0e8fefL._AC_UY879_.jpg",
     rating: { rate: 2.9, count: 340 },
-    likes: 0
+    likes: 0,
+    stock: 100
   },
   {
     title: "Rain Jacket Women Windbreaker Striped Climbing Raincoats",
@@ -203,7 +219,8 @@ const seedData = async () => {
     category: "women's clothing",
     image: "https://fakestoreapi.com/img/71HblAHs5xL._AC_UY879_-2.jpg",
     rating: { rate: 3.8, count: 679 },
-    likes: 0
+    likes: 0,
+    stock: 100
   },
   {
     title: "MBJ Women's Solid Short Sleeve Boat Neck V",
@@ -212,7 +229,8 @@ const seedData = async () => {
     category: "women's clothing",
     image: "https://fakestoreapi.com/img/71z3kpMAYsL._AC_UY879_.jpg",
     rating: { rate: 4.7, count: 130 },
-    likes: 0
+    likes: 0,
+    stock: 100
   },
   {
     title: "Opna Women's Short Sleeve Moisture",
@@ -221,7 +239,8 @@ const seedData = async () => {
     category: "women's clothing",
     image: "https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg",
     rating: { rate: 4.5, count: 146 },
-    likes: 0
+    likes: 0,
+    stock: 100
   },
   {
     title: "DANVOUY Womens T Shirt Casual Cotton Short",
@@ -230,7 +249,8 @@ const seedData = async () => {
     category: "women's clothing",
     image: "https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg",
     rating: { rate: 3.6, count: 145 },
-    likes: 0
+    likes: 0,
+    stock: 100
   }
     ];
 

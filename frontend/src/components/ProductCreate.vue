@@ -62,6 +62,15 @@
               required
             ></v-text-field>
           </v-col>
+
+          <v-col cols="12" md="6">
+            <v-text-field
+              v-model="product.stock"
+              label="Stock"
+              type="number"
+              required
+            ></v-text-field>
+          </v-col>
         </v-row>
 
         <v-btn
@@ -99,7 +108,8 @@ export default {
       description: '',
       category: '',
       image: '',
-      rating: { rate: 0, count: 0 }
+      rating: { rate: 0, count: 0 },
+      stock: 0
       }
     }
   },

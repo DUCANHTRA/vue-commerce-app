@@ -9,6 +9,9 @@
         {{ product.title }}
       </p>
       <p class="mb-2 text-center h3">${{ product.price }}</p>
+      <p class="text-center" :class="{'text-danger': product.stock === 0}">
+        {{ product.stock > 0 ? `${product.stock} in stock` : 'Out of stock' }}
+      </p>
       <div class="d-flex justify-content-center align-items-center mb-4">
         <button
           @click="handleLike"
@@ -20,8 +23,9 @@
         <button
           @click="cartStore.addToCart(product)"
           class="btn btn-primary text-uppercase"
+          :disabled="product.stock === 0"
         >
-          Add to Cart
+          {{ product.stock > 0 ? 'Add to Cart' : 'Out of stock' }}
         </button>
       </div>
     </div>
