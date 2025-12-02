@@ -16,6 +16,9 @@ app.use(cors({
 //Use express.json() middleware to parse JSON requests automatically
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  res.json({ message: 'Backend is running!' });
+});
 
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
