@@ -32,6 +32,7 @@
   </template>
   
   <script setup>
+  import { API_BASE_URL } from "../config";
   import { useCartStore } from "../stores/cart";
   import { ref, onMounted } from 'vue';
   
@@ -47,7 +48,7 @@
   
   const fetchLikes = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/products/${props.product._id}`);
+      const response = await fetch(`${API_BASE_URL}/api/products/${props.product._id}`);
       if (!response.ok) throw new Error('Network response was not ok');
 
       const data = await response.json();
@@ -69,7 +70,7 @@
   const handleLike = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/products/${props.product._id}/like`,
+        `${API_BASE_URL}/api/products/${props.product._id}/like`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" }

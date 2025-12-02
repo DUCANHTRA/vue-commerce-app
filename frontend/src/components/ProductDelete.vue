@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import { API_BASE_URL } from '../config';
 import { toast } from '../utils/toast'
 
 export default {
@@ -59,7 +60,7 @@ export default {
       if (!this.productId) return;
 
       try {
-        const response = await fetch(`http://localhost:5000/api/products/${this.productId}`);
+        const response = await fetch(`${API_BASE_URL}/api/products/${this.productId}`);
 
 
         if (!response.ok) {
@@ -92,7 +93,7 @@ export default {
 
       try {
         const response = await fetch(
-          `http://localhost:5000/api/products/${this.productId}`,
+          `${API_BASE_URL}/api/products/${this.productId}`,
           {
             method: "DELETE",
             headers: {

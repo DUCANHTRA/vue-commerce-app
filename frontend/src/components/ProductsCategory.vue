@@ -60,6 +60,7 @@
 </template>
 
 <script>
+import { API_BASE_URL } from "../config";
 import { RouterLink } from "vue-router";
 import ProductCard from "./ProductCard.vue";
 import SearchFilter from "./SearchFilter.vue";
@@ -164,7 +165,7 @@ export default {
     async getProducts() {
         try {
             this.error = null;
-            let url = `http://localhost:5000/api/products?category=${encodeURIComponent(this.category)}`;
+            let url = `${API_BASE_URL}/api/products?category=${encodeURIComponent(this.category)}`;
             console.log('Attempting to fetch from URL:', url);
 
             if (this.showMoreBtn) {

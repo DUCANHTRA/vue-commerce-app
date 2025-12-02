@@ -1,4 +1,5 @@
 <script>
+import { API_BASE_URL } from "../config";
 import ProductsCategory from "../components/ProductsCategory.vue";
 
 export default {
@@ -17,7 +18,7 @@ export default {
   methods: {
     async getCategories() {
       try {
-        let response = await fetch("http://localhost:5000/api/products");
+        let response = await fetch(`${API_BASE_URL}/api/products`);
         let data = await response.json();
         console.log('Received products:', data);
 

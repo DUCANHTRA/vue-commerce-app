@@ -74,6 +74,7 @@
 </template>
 
 <script>
+import { API_BASE_URL } from '../config';
 import { toast } from '../utils/toast'
 
 export default {
@@ -93,7 +94,7 @@ export default {
       if (!this.$refs.form.validate()) return;
 
       try {
-        const response = await fetch('http://localhost:5000/api/users/register', {
+        const response = await fetch(`${API_BASE_URL}/api/users/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -120,4 +121,4 @@ export default {
     }
   }
 }
-</script> 
+</script>

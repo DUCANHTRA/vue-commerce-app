@@ -46,6 +46,8 @@
 </template>
 
 <script>
+import { API_BASE_URL } from '@/config';
+
 export default {
   name: 'Login',
   data() {
@@ -61,7 +63,7 @@ export default {
       if (!this.$refs.form.validate()) return;
 
       try {
-        const response = await fetch('http://localhost:5000/api/users/login', {
+        const response = await fetch(`${API_BASE_URL}/api/users/login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

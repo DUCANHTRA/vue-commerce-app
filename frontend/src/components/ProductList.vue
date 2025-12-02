@@ -88,6 +88,8 @@
 </template>
 
 <script>
+import { API_BASE_URL } from '../config';
+
 export default {
   name: 'ProductList',
   data() {
@@ -143,7 +145,7 @@ export default {
         //const url = "http://localhost:5000/api/products"; 
         
         // Fetch all products
-        const response = await fetch("http://localhost:5000/api/products");
+        const response = await fetch(`${API_BASE_URL}/api/products`);
 
         if (!response.ok) {
           const errData = await response.json();
@@ -180,7 +182,7 @@ export default {
 
       try {
         const response = await fetch(
-          `http://localhost:5000/api/products/${this.productId}`,
+          `${API_BASE_URL}/api/products/${this.productId}`,
           {
             method: "DELETE",
             headers: {

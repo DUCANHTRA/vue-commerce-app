@@ -78,6 +78,7 @@
 </template>
 
 <script setup>
+import { API_BASE_URL } from "../config";
 import { toast } from "../utils/toast";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useCartStore } from "../stores/cart";
@@ -101,7 +102,7 @@ const submit = async () => {
   }));
 
   try {
-    const response = await fetch("http://localhost:5000/api/orders", {
+    const response = await fetch(`${API_BASE_URL}/api/orders`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
