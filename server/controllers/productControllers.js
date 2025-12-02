@@ -28,7 +28,7 @@ export const getProducts = async (req, res) => {
     res.json({
       success: true,
       data: products,
-      message: products.length === 0 ? 'No products found' : undefined,
+      message: products.length === 0 ? 'No products found' : null,
     });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
