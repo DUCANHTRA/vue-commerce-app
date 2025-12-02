@@ -1,23 +1,43 @@
 //config/db.js
-import mongooes from 'mongoose';
+import mongoose from 'mongoose';
 
-const connectDB = async () => {
-    try {
-        //Use mongooes to connect to the MongoDB Atlas database
-        const conn = await mongooes.connect(process.env.MONGO_URI, {
-            dbName: process.env.DB_NAME
-        });
-        console.log(`MongoDB connected: ${conn.connection.host}`);
-    } catch (error) {
-        //If failed,
-        //print error maessage
-        //exit the process with a failure code
-        console.error(`Error connecting to MongoDB: ${error.message}`);
-        process.exit(1);
-    }
+// config/db.js
+import mongoose from "mongoose";
+
+const MONGO_URI = process.env.MONGO_URI;
+
+let cached = global.mongoose;
+
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
 }
 
+const connectDB = async () => {
+  if (cached.conn) {
+    return cached.conn; // ✅ reuse existing connection
+  }
+
+  if (!cached.promise) {
+    cached.promise = mongoose.connect(MONGO_URI, {
+      dbName: process.env.DB_NAME,
+      bufferCommands: false,
+      serverSelectionTimeoutMS: 5000,
+    });
+  }
+
+  try {
+    cached.conn = await cached.promise;
+    console.log("✅ MongoDB connected");
+    return cached.conn;
+  } catch (error) {
+    cached.promise = null;
+    console.error("❌ MongoDB connection error:", error.message);
+    throw error; // ✅ DO NOT use process.exit on Vercel
+  }
+};
+
 export default connectDB;
+
 
 //Key Idea:
 //Handle Database connectivity in one place
