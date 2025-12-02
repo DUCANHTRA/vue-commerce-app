@@ -1,13 +1,10 @@
 import dotenv from 'dotenv';
-import connectDB from './config/db.js';
 import app from './app.js';
 
 //Entry Point
 
 //Load Environment Variables from .env file
 dotenv.config();
-//Call the connectDB function to connect to Atlas MongoDB
-connectDB();
 
 const PORT = process.env.PORT || 5000;
 

@@ -1,11 +1,12 @@
 import bcrypt from 'bcrypt';
 import User from '../models/User.js';
-
+import connectDB from '../config/db.js';
 /**
  * Get user by ID (excluding password)
  */
 export const getUserById = async (req, res) => {
   try {
+    await connectDB();
     const user = await User.findById(req.params.id).select('-password'); // exclude password
     if (!user) return res.status(404).json({ success: false, message: 'User not found' });
     res.json(user);
@@ -19,6 +20,7 @@ export const getUserById = async (req, res) => {
  */
 export const registerUser = async (req, res) => {
   try {
+    await connectDB();
     const { username, email, password } = req.body;
 
     // Check if username already exists
@@ -39,6 +41,7 @@ export const registerUser = async (req, res) => {
  */
 export const loginUser = async (req, res) => {
   try {
+    await connectDB();
     const { username, password } = req.body;
 
     const user = await User.findOne({ username });

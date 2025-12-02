@@ -1,10 +1,12 @@
 import Product from '../models/Product.js';
+import connectDB from '../config/db.js';
 
 /**
  * Get all products or distinct categories
  */
 export const getProducts = async (req, res) => {
   try {
+    await connectDB();
     const { category, limit, categories } = req.query;
 
     if (categories === 'true') {
@@ -38,6 +40,7 @@ export const getProducts = async (req, res) => {
  */
 export const getProductById = async (req, res) => {
   try {
+    await connectDB();
     const product = await Product.findById(req.params.id);
     if (!product) return res.status(404).json({ success: false, message: 'Product not found' });
     res.json(product);
@@ -51,6 +54,7 @@ export const getProductById = async (req, res) => {
  */
 export const createProduct = async (req, res) => {
   try {
+    await connectDB();
     const product = new Product(req.body);
     await product.save();
     res.status(201).json({ success: true, id: product._id });
@@ -64,6 +68,7 @@ export const createProduct = async (req, res) => {
  */
 export const updateProduct = async (req, res) => {
   try {
+    await connectDB();
     const updated = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!updated) return res.status(404).json({ success: false, message: 'Product not found' });
     res.json({ success: true, product: updated });
@@ -77,6 +82,7 @@ export const updateProduct = async (req, res) => {
  */
 export const deleteProduct = async (req, res) => {
   try {
+    await connectDB();
     const product = await Product.findById(req.params.id);
     if (!product) return res.status(404).json({ success: false, message: 'Product not found' });
     await product.deleteOne();
@@ -91,6 +97,7 @@ export const deleteProduct = async (req, res) => {
  */
 export const likeProduct = async (req, res) => {
   try {
+    await connectDB();
     const product = await Product.findByIdAndUpdate(
       req.params.id,
       { $inc: { likes: 1 } },

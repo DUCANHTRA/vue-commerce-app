@@ -1,8 +1,10 @@
 import Order from '../models/Order.js';
 import Product from '../models/Product.js';
+import connectDB from '../config/db.js';
 
 export const createOrder = async (req, res) => {
   try {
+    await connectDB();
     const { user, items, total, shippingAddress } = req.body;
 
     // Check for required fields

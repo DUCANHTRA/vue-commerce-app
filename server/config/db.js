@@ -1,45 +1,50 @@
-//config/db.js
-import mongoose from 'mongoose';
-
-// config/db.js
 import mongoose from "mongoose";
 
 const MONGO_URI = process.env.MONGO_URI;
 
+if (!MONGO_URI) {
+  throw new Error(
+    "Please define the MONGO_URI environment variable inside .env"
+  );
+}
+
+/**
+ * Global is used here to maintain a cached connection across hot reloads
+ * in development. This prevents connections from growing exponentially
+ * during API Route usage.
+ */
 let cached = global.mongoose;
 
 if (!cached) {
   cached = global.mongoose = { conn: null, promise: null };
 }
 
-const connectDB = async () => {
+async function connectDB() {
   if (cached.conn) {
-    return cached.conn; // ✅ reuse existing connection
+    return cached.conn;
   }
 
   if (!cached.promise) {
-    cached.promise = mongoose.connect(MONGO_URI, {
-      dbName: process.env.DB_NAME,
+    const opts = {
       bufferCommands: false,
-      serverSelectionTimeoutMS: 5000,
+      serverSelectionTimeoutMS: 10000, // Keep trying to send operations for 10 seconds
+    };
+
+    cached.promise = mongoose.connect(MONGO_URI, opts).then((mongoose) => {
+      console.log("✅ New MongoDB connection established.");
+      return mongoose;
     });
   }
-
+  
   try {
     cached.conn = await cached.promise;
-    console.log("✅ MongoDB connected");
-    return cached.conn;
-  } catch (error) {
+  } catch (e) {
     cached.promise = null;
-    console.error("❌ MongoDB connection error:", error.message);
-    throw error; // ✅ DO NOT use process.exit on Vercel
+    console.error("❌ MongoDB connection error:", e.message);
+    throw e;
   }
-};
+
+  return cached.conn;
+}
 
 export default connectDB;
-
-
-//Key Idea:
-//Handle Database connectivity in one place
-//Any part of the application can import
-//To ensure db is connected
