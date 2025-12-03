@@ -44,7 +44,8 @@
 
 <script>
 import { API_BASE_URL } from '../config';
-import { toast } from '../utils/toast'
+import { toast } from '../utils/toast';
+import { authHeader } from '../utils/authHeader';
 
 export default {
   name: 'ProductDelete',
@@ -93,12 +94,10 @@ export default {
 
       try {
         const response = await fetch(
-          `${API_BASE_URL}/api/products/${this.productId}`,
+          `${API_BASE_URL}/api/admin/products/${this.productId}`,
           {
             method: "DELETE",
-            headers: {
-              "Content-Type": "application/json"
-            }
+            headers: authHeader()
           }
         );
 

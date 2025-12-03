@@ -42,7 +42,7 @@ const routes = [
     path: "/dashboard",
     name: "dashboard",
     component: Dashboard,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true, requiresAdmin: true }
   },
   {
     path: "/cart",
@@ -63,13 +63,17 @@ const router = createRouter({
 
 // Navigation guard
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true'
-  
-  if (to.meta.requiresAuth && !isAuthenticated) {
-    // Redirect to login if trying to access protected route without authentication
-    next({ name: 'login' })
+  const token = localStorage.getItem('token');
+  const user = JSON.parse(localStorage.getItem('user'));
+  const isAuthenticated = !!token;
+  const isAdmin = isAuthenticated && user?.role === 'admin';
+
+  if (to.meta.requiresAdmin && !isAdmin) {
+    next({ name: 'home' }); 
+  } else if (to.meta.requiresAuth && !isAuthenticated) {
+    next({ name: 'login' });
   } else {
-    next()
+    next();
   }
 })
 

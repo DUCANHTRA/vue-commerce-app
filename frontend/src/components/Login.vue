@@ -77,14 +77,17 @@ export default {
         const data = await response.json();
         
         if (data && data.success) {
-          //localStorage isAuthenticated is set to true
-          localStorage.setItem('isAuthenticated', 'true');
-          localStorage.setItem('user', JSON.stringify(data));
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data.user));
 
           // Emit the authenticated event to parent
           this.$emit('authenticated', true);
           
-          this.$router.push({ name: 'dashboard' });
+          if (data.user.role === 'admin') {
+            this.$router.push({ name: 'dashboard' });
+          } else {
+            this.$router.push({ name: 'home' });
+          }
         } else {
           this.error = data.message || 'Invalid username or password';
         }
