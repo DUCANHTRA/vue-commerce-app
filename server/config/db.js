@@ -32,8 +32,13 @@ async function connectDB() {
       serverSelectionTimeoutMS: 10000, // Keep trying to send operations for 10 seconds
     };
 
-    cached.promise = mongoose.connect(MONGO_URI, opts).then((mongoose) => {
+    cached.promise = mongoose.connect(MONGO_URI, {
+      dbName: "vue_ecommerce",   // ✅ Forces correct DB
+      bufferCommands: false,
+      serverSelectionTimeoutMS: 10000,
+    }).then((mongoose) => {
       console.log("✅ New MongoDB connection established.");
+      console.log("📦 Connected to DB:", mongoose.connection.name);
       return mongoose;
     });
   }
