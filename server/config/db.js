@@ -33,12 +33,13 @@ async function connectDB() {
     };
 
     cached.promise = mongoose.connect(MONGO_URI, {
-      dbName: "vue_ecommerce",   // ✅ Forces correct DB
+      // ✅ Forces correct DB name from .env
+      dbName: "vue_ecommerce",   
       bufferCommands: false,
       serverSelectionTimeoutMS: 10000,
     }).then((mongoose) => {
       console.log("✅ New MongoDB connection established.");
-      console.log("📦 Connected to DB:", mongoose.connection.name);
+      //console.log("📦 Connected to DB:", mongoose.connection.name);
       return mongoose;
     });
   }
