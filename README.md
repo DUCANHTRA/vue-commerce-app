@@ -73,7 +73,7 @@ npm install
 
 Create a `.env` file in the `frontend` directory:
 ```env
-VITE_STRIPE_PUBLIC_KEY=your_stripe_public_key
+VITE_API_URL=http://localhost:5000/api
 ```
 
 Start the development server:
