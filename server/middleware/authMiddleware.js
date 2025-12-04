@@ -8,7 +8,7 @@ export const protect = async (req, res, next) => {
     //1️⃣ Check if token exists in header
     if (
         req.headers.authorization &&
-        req.headers.authorization.startWith('Bearer')
+        req.headers.authorization.startsWith('Bearer')
     ){
         try {
             //Get token from header
@@ -18,7 +18,7 @@ export const protect = async (req, res, next) => {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
             //3️⃣ Attach user to request object
-            req.user = await User.findById(decoded.id).select('-passwordHash');
+            req.user = await User.findById(decoded.id).select('-password');
 
             //4️⃣ Continue to next middleware or route handler
             next();
@@ -33,4 +33,12 @@ export const protect = async (req, res, next) => {
     if (!token) {
         res.status(401).json({ message: 'Not authorized, no token' });
     }
+};
+
+export const adminOnly = (req, res, next) => {
+  if (req.user && req.user.role === 'admin') {
+    next();
+  } else {
+    res.status(403).json({ message: 'Forbidden: Admin access required' });
+  }
 };

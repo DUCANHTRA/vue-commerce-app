@@ -34,6 +34,7 @@ const seedData = async () => {
         username: 'admin',
         email: 'admin@example.com',
         password: await hashPassword('hellovue'),
+        role: 'admin',
       },
     ];
 

@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 import connectDB from '../config/db.js';
 /**
@@ -50,8 +51,15 @@ export const loginUser = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ success: false, message: 'Invalid username or password' });
 
-    // Optionally return a JWT token here for auth
-    res.json({ success: true, user: { id: user._id, username: user.username, email: user.email } });
+    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    });
+
+    res.json({
+      success: true,
+      token,
+      user: { id: user._id, username: user.username, email: user.email, role: user.role },
+    });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }

@@ -60,12 +60,6 @@ export default {
         'Delete'
       ]
     }
-  },
-  created() {
-    // Check if user is authenticated
-    if (!localStorage.getItem('isAuthenticated')) {
-      this.$router.push({ name: 'login' })
-    }
   }
 }
 </script>

@@ -25,7 +25,7 @@
         
         <!-- Show these links when authenticated -->
         <template v-if="isAuthenticated">
-          <router-link to="/dashboard" class="nav-link">Dashboard</router-link>
+          <router-link v-if="isAdmin" to="/dashboard" class="nav-link">Dashboard</router-link>
           <a href="#" @click.prevent="handleLogout" class="nav-link">Logout</a>
         </template>
       </div>
@@ -51,12 +51,18 @@ export default {
     // reactive cart count
     const cartCount = computed(() => cartStore.cart.length);
 
-    return { cartCount };
+    const isAdmin = computed(() => {
+      const user = JSON.parse(localStorage.getItem('user'));
+      return user && user.role === 'admin';
+    });
+
+    return { cartCount, isAdmin };
   },
   methods: {
     handleLogout() {
-      localStorage.removeItem('isAuthenticated');
+      localStorage.removeItem('isAuthenticated'); // This can be removed later
       localStorage.removeItem('user');
+      localStorage.removeItem('token');
       this.$emit('authenticated', false);
       this.$router.push({ name: 'login' });
     }
