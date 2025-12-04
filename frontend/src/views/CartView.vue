@@ -108,7 +108,7 @@ const submit = async () => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        user: user.user.id,
+        user: user.id,
         items: orderItems,
         total: cartStore.total,
         shippingAddress: "123 Main St, Anytown, USA" // Placeholder

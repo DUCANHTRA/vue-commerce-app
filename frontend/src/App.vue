@@ -8,21 +8,21 @@ export default {
   },
   data() {
     return {
-      isAuthenticated: localStorage.getItem('isAuthenticated') === 'true',
+      isAuthenticated: !!localStorage.getItem('token'),
       cartCount: 0
     }
   },
   methods: {
     updateAuthStatus(status) {
       this.isAuthenticated = status;
-      localStorage.setItem('isAuthenticated', status);
     },
     updateCartCount() {
       const cart = JSON.parse(localStorage.getItem('cart') || '[]');
       this.cartCount = cart.length;
     },
     logout() {
-      localStorage.removeItem('isAuthenticated');
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
       this.isAuthenticated = false;
       this.$router.push({ name: 'login' });
     }
