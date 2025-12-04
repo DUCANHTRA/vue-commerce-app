@@ -18,13 +18,18 @@ app.use(cors({
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.json({ message: 'Backend is running!' });
+  res.json({ message: 'Backend is working!' });
 });
 
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/admin", adminRoutes);
+
+// Catch-all for non-existent routes
+app.use((req, res, next) => {
+  res.status(404).json({ message: "Resource not found" });
+});
 
 export default app;
 
