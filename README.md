@@ -1,97 +1,115 @@
 # Vue Commerce App
 
-A modern e-commerce application built with Vue.js 3, featuring a responsive design and seamless shopping experience.
+A modern, full-stack e-commerce application built with Vue.js 3 and Node.js, featuring a responsive design, secure authentication, and seamless shopping experience.
 
 ## 🚀 Features
 
-- Modern Vue 3 composition API
-- Responsive design using Vuetify and Bootstrap
-- State management with Pinia
-- Secure payment processing with Stripe integration
-- Toast notifications for better user feedback
-- Material Design Icons
-- Client-side routing with Vue Router
+- **Full-Stack Architecture**: Separate frontend (Vue 3) and server (Express/Node.js).
+- **Modern UI**: Responsive design using Vuetify and Bootstrap.
+- **State Management**: Pinia for efficient state handling.
+- **Authentication**: Secure user authentication with JWT and bcrypt.
+- **Database**: MongoDB integration using Mongoose.
+- **Notifications**: Toast notifications for user feedback.
 
 ## 🛠️ Tech Stack
 
-- **Frontend Framework:** Vue.js 3
-- **UI Components:** 
-  - Vuetify 3
-  - Bootstrap 5
-  - Bootstrap Vue 3
-- **State Management:** Pinia
-- **Payment Processing:** Stripe
+### Frontend
+- **Framework:** Vue.js 3
 - **Build Tool:** Vite
-- **Icons:** Material Design Icons
-- **Notifications:** Mosha Vue Toastify
+- **UI Components:** Vuetify 3, Bootstrap 5, Bootstrap Vue 3
+- **State Management:** Pinia
+- **Routing:** Vue Router
+- **Icons:** Material Design Icons, Bootstrap Icons
+
+### Backend
+- **Runtime:** Node.js
+- **Framework:** Express.js
+- **Database:** MongoDB with Mongoose
+- **Authentication:** JSON Web Tokens (JWT), bcrypt
+- **Utilities:** dotenv, cors
 
 ## 📋 Prerequisites
 
 - Node.js (Latest LTS version recommended)
+- MongoDB (Atlas connection)
 - npm or yarn package manager
 
 ## 🚀 Getting Started
 
-1. Clone the repository:
-   ```bash
-   git clone [your-repository-url]
-   cd vue-commerce-app
-   ```
+### 1. Clone the repository
+```bash
+git clone [your-repository-url]
+cd vue-commerce-app
+```
 
-2. Install dependencies:
-   ```bash
-   cd frontend
-   npm install
-   ```
+### 2. Backend Setup
+Navigate to the server directory and install dependencies:
+```bash
+cd server
+npm install
+```
 
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
-   The application will be available at `http://localhost:5173`
+Create a `.env` file in the `server` directory:
+```env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+CORS_ORIGIN=http://localhost:5173
+```
 
-## 📦 Available Scripts
+Start the backend server:
+```bash
+node server.js
+# OR with nodemon for development
+npx nodemon server.js
+```
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint with auto-fix
+### 3. Frontend Setup
+Open a new terminal, navigate to the frontend directory and install dependencies:
+```bash
+cd frontend
+npm install
+```
 
-## 🔧 Configuration
+Create a `.env` file in the `frontend` directory:
+```env
+VITE_STRIPE_PUBLIC_KEY=your_stripe_public_key
+```
 
-The project uses Vite as the build tool. Configuration can be found in `vite.config.js`.
+Start the development server:
+```bash
+npm run dev
+```
+The application will be available at `http://localhost:5173`
 
 ## 📁 Project Structure
 
 ```
-frontend/
-├── public/          # Static assets
-├── src/            # Source files
-│   ├── assets/     # Project assets
-│   ├── components/ # Vue components
-│   ├── views/      # Page components
-│   ├── router/     # Vue Router configuration
-│   ├── stores/     # Pinia stores
-│   └── App.vue     # Root component
-├── index.html      # Entry HTML file
-└── package.json    # Project dependencies and scripts
-```
-
-## 🔒 Environment Variables
-
-Create a `.env` file in the frontend directory with the following variables:
-
-```
-VITE_STRIPE_PUBLIC_KEY=your_stripe_public_key
+vue-commerce-app/
+├── frontend/           # Vue.js Frontend
+│   ├── src/
+│   │   ├── components/
+│   │   ├── views/
+│   │   ├── stores/
+│   │   └── ...
+│   └── ...
+├── server/             # Node.js/Express Backend
+│   ├── config/         # DB Configuration
+│   ├── controllers/    # Route Controllers
+│   ├── middleware/     # Custom Middleware
+│   ├── models/         # Mongoose Models
+│   ├── routes/         # API Routes
+│   └── ...
+└── README.md
 ```
 
 ## 👥 Authors
 
-- Duc Anh Tran - Initial work
+- Duc Anh Tran
 
 ## 🙏 Acknowledgments
 
-- Vue.js team for the amazing framework
-- Vuetify team for the beautiful UI components
-- Stripe for secure payment processing
-- [Educative.io](https://www.educative.io/projects/e-commerce-store-in-vuejs-with-payment-integration) team for their comprehensive e-commerce project guide and implementation insights 
+- Vue.js team
+- Vuetify team
+- Stripe
+- Educative.io team for amazing e-commerce project guide and implementation insights

@@ -60,6 +60,12 @@ export default {
         'Delete'
       ]
     }
+  },
+  created() {
+    const user = JSON.parse(localStorage.getItem('user'))
+    if (!user || user.role !== 'admin') {
+      this.$router.push('/')
+    }
   }
 }
 </script>
