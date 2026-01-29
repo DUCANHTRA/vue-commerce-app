@@ -134,13 +134,9 @@ export default {
         const newProduct = await response.json();
 
         console.log("Product creation response:", newProduct);
-
-        // Backend returns: { success: true, id: '...' }
         if (newProduct && newProduct.id) {
           toast.success("Product created successfully!");
           this.$refs.form.reset();
-
-          // likes are already initialized in backend, no extra request needed
           console.log("New product ID:", newProduct.id);
         } else {
           throw new Error("Failed to get new product ID");

@@ -8,7 +8,6 @@
           </v-toolbar>
           <v-card-text>
 
-            <!--Username Form-->
             <v-form ref="form" v-model="valid" @submit.prevent="login">
               <v-text-field
                 v-model="username"
@@ -20,7 +19,6 @@
                 required
               ></v-text-field>
 
-              <!--Password Form-->
               <v-text-field
                 v-model="password"
                 label="Password"
@@ -80,7 +78,6 @@ export default {
           localStorage.setItem('token', data.token);
           localStorage.setItem('user', JSON.stringify(data.user));
 
-          // Emit the authenticated event to parent
           this.$emit('authenticated', true);
           
           if (data.user.role === 'admin') {

@@ -111,7 +111,6 @@ import { authHeader } from '../utils/authHeader';
 
 export default {
   name: 'ProductUpdate',
-  //Data
   data() {
     return {
       valid: false,
@@ -128,7 +127,6 @@ export default {
     }
   },
 
-  //Method
   methods: {
     async fetchProduct() {
       if (!this.productId) return;
@@ -149,7 +147,6 @@ export default {
           return;
         }
 
-        // Assign product object to local state
         this.product = data;
         console.log("Fetched product:", data);
 

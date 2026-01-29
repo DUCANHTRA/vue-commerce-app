@@ -18,7 +18,6 @@
       </div>
 
       <div v-else class="container">
-        <!-- Search and Filter Component -->
         <SearchFilter @search="handleSearch" />
 
         <!-- Responsive grid with different columns for different screen sizes -->
@@ -82,7 +81,6 @@ export default {
   data() {
     this.publishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
 
-    //Data of ProductCategory.vue
     return {
       link: "",
       products: [],
@@ -112,13 +110,11 @@ export default {
     handleSearch(filters) {
       this.searchFilters = filters;
       this.filterProducts();
-      this.currentPage = 1; // Reset to first page when filters change
+      this.currentPage = 1;
     },
     filterProducts() {
       let filtered = [...this.products];
-
       // Apply search query filter
-      //Filter by name
       if (this.searchFilters.query) {
         const query = this.searchFilters.query.toLowerCase();
         filtered = filtered.filter(product => 
@@ -161,7 +157,6 @@ export default {
       });
     },
 
-    //Get products from API
     async getProducts() {
         try {
             this.error = null;
@@ -203,7 +198,6 @@ export default {
     }
   },
   created() {
-    //Link = category${this.category}
     this.link = `/category/${this.category}`;
     this.getProducts();
   },

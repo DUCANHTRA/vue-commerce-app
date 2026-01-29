@@ -4,7 +4,6 @@ import { protect, adminOnly } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-// This single middleware applies to all routes in this file
 router.use(protect, adminOnly);
 
 router.post('/products', createProduct);

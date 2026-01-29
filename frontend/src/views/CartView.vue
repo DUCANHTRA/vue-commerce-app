@@ -23,27 +23,20 @@
             </th>
 
             <td class="py-4 px-4 fw-bold">
-              <!--Product title -->
               {{ product.title }}
             </td>
 
             <td class="py-4 px-4 fw-bold">
-              <!--ReduceQty from cart.js -->
-
               <i @click="cartStore.reduceQty(product._id)" class="bi bi-dash-lg me-3 cursor-pointer"></i>
               <span>{{ product.quantity }}</span>
-              <!--AddQty from cart.js -->
               <i @click="cartStore.addQty(product._id)" class="bi bi-plus-lg ms-3 cursor-pointer"></i>
             </td>
 
             <td class="py-4 px-4 fw-bold">
-              $
-              <!--product price here -->
-              {{ product.price }}
+              ${{ product.price }}
             </td>
 
             <td class="py-4 px-4">
-              <!--removeFromCart function in the click event -->
               <i @click="cartStore.removeFromCart(product._id)" class="bi bi-x-lg cursor-pointer"></i>
             </td>
           </tr>
@@ -52,7 +45,6 @@
     </div>
     <p class="my-4 text-end h3 fw-medium">
       Total: ${{ cartStore.total }}
-      <!--write the total getter here -->
     </p>
     <button
       class="btn btn-primary text-uppercase mb-3"
@@ -61,7 +53,6 @@
       Proceed to checkout
     </button>
   </div>
-  <!-- Task 5: Add the v-else condition here -->
   <div v-else class="container my-5">
     <div class="card shadow-sm mx-auto" style="max-width: 500px;">
       <div class="card-body text-center">
@@ -111,7 +102,7 @@ const submit = async () => {
         user: user.id,
         items: orderItems,
         total: cartStore.total,
-        shippingAddress: "123 Main St, Anytown, USA" // Placeholder
+        shippingAddress: "123 Main St, Anytown, USA"
       })
     });
 

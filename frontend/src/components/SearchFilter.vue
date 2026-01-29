@@ -17,14 +17,12 @@
         @update:model-value="handleFilter"
       ></v-text-field>
 
-      <!-- Filters -->
       <v-expansion-panels>
         <v-expansion-panel>
           <v-expansion-panel-title>
             Filters
           </v-expansion-panel-title>
           <v-expansion-panel-text>
-            <!-- Price Range Filter -->
             <div class="mb-4">
               <h4 class="text-subtitle-1 mb-2">Price Range</h4>
               <v-range-slider
@@ -41,7 +39,6 @@
               </div>
             </div>
 
-            <!-- Sort Options -->
             <div class="mb-4">
               <h4 class="text-subtitle-1 mb-2">Sort By</h4>
               <v-select
@@ -54,7 +51,6 @@
               ></v-select>
             </div>
 
-            <!-- Clear Filters Button -->
             <v-btn
               color="primary"
               variant="outlined"

@@ -76,8 +76,6 @@ export default {
           this.reset();
           return;
         }
-
-        // Assign product object to local state
         this.product = data;
         console.log("Fetched product:", data);
 
@@ -107,7 +105,6 @@ export default {
           throw new Error(data.message || `Deletion failed with status ${response.status}`);
         }
 
-        // Success
         toast.success("Product deleted successfully.");
         this.reset();
 

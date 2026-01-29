@@ -6,15 +6,11 @@ import orderRoutes from './routes/orderRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 
 const app = express();
-
-
-// CORS setup
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || "http://localhost:5173",   // Your frontend
+  origin: process.env.CORS_ORIGIN || "http://localhost:5173", 
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
-//Use express.json() middleware to parse JSON requests automatically
 app.use(express.json());
 
 app.get('/', (req, res) => {
@@ -31,7 +27,3 @@ app.use((req, res) => {
 });
 
 export default app;
-
-//Key Idea:
-//Router and Middleware Manager
-//Does not start the server

@@ -12,18 +12,12 @@
           <i class="bi bi-cart3"></i>
           <span v-if="cartCount > 0" class="cart-count">{{ cartCount }}</span>
         </router-link>
-        <!--Delete this
-        <router-link to="/dashboard" class="nav-link">Dashboard</router-link>
-        <a href="#" @click.prevent="handleLogout" class="nav-link">Logout</a>
-        -->
-        
-        <!-- Show these links when not authenticated -->
+
         <template v-if="!isAuthenticated">
           <router-link to="/login" class="nav-link">Login</router-link>
           <router-link to="/register" class="nav-link">Register</router-link>
         </template>
         
-        <!-- Show these links when authenticated -->
         <template v-if="isAuthenticated">
           <router-link v-if="isAdmin" to="/dashboard" class="nav-link">Dashboard</router-link>
           <a href="#" @click.prevent="handleLogout" class="nav-link">Logout</a>
@@ -48,7 +42,6 @@ export default {
   setup() {
     const cartStore = useCartStore();
 
-    // reactive cart count
     const cartCount = computed(() => cartStore.cart.length);
 
     const isAdmin = computed(() => {
@@ -60,7 +53,7 @@ export default {
   },
   methods: {
     handleLogout() {
-      localStorage.removeItem('isAuthenticated'); // This can be removed later
+      localStorage.removeItem('isAuthenticated');
       localStorage.removeItem('user');
       localStorage.removeItem('token');
       this.$emit('authenticated', false);

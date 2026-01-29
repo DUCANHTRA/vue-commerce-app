@@ -37,11 +37,9 @@
   import { ref, onMounted } from 'vue';
   
   const props = defineProps({
-    //prop: Product Object
     product: Object,
   });
   
-  //Use Pinia Store
   const cartStore = useCartStore();
   const likesCount = ref(0);
   const isLiked = ref(false);
@@ -53,11 +51,9 @@
 
       const data = await response.json();
 
-      // Backend returns the product directly
       if (data && data.likes !== undefined) {
         likesCount.value = data.likes;
       } else if (data && data.product && data.product.likes !== undefined) {
-        // fallback if product is nested
         likesCount.value = data.product.likes;
       } else {
         console.warn('Likes field not found in response:', data);
@@ -80,8 +76,6 @@
       if (!response.ok) throw new Error('Network response was not ok');
 
       const data = await response.json();
-
-      // Use correct path based on backend
       if (data && data.product && data.product.likes !== undefined) {
         likesCount.value = data.product.likes;
         isLiked.value = true;

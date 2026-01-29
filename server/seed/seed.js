@@ -13,7 +13,6 @@ const seedData = async () => {
   try {
     const db = mongoose.connection.db;
 
-    // --- Users Seeding ---
     const existingCollections = await db.listCollections().toArray();
     const collectionNames = existingCollections.map(c => c.name);
 
@@ -22,13 +21,9 @@ const seedData = async () => {
     } else {
       console.log('⚠️ "users" collection exists.');
     }
-
-    // Clear existing users
     await User.deleteMany();
 
     const hashPassword = async (password) => await bcrypt.hash(password, 10);
-
-    //user entries
     const users = [
       {
         username: 'admin',
@@ -38,7 +33,6 @@ const seedData = async () => {
       },
     ];
 
-    //inserMany() bypasses pre-save hooks, have to hashed manually here
     await User.insertMany(users);
     console.log('🌱 Users seeded successfully 🌱');
 

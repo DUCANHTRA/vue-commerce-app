@@ -7,12 +7,10 @@ export const createOrder = async (req, res) => {
     await connectDB();
     const { user, items, total, shippingAddress } = req.body;
 
-    // Check for required fields
     if (!user || !items || !total) {
       return res.status(400).json({ success: false, message: 'Missing required fields' });
     }
 
-    // Check stock availability
     for (const item of items) {
       const product = await Product.findById(item.product);
       if (!product) {
@@ -23,7 +21,6 @@ export const createOrder = async (req, res) => {
       }
     }
 
-    // Create a new order
     const order = new Order({
       user,
       items,
@@ -33,7 +30,6 @@ export const createOrder = async (req, res) => {
 
     await order.save();
 
-    // Update stock
     for (const item of items) {
       await Product.findByIdAndUpdate(item.product, {
         $inc: { stock: -item.quantity }

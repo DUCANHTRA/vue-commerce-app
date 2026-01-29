@@ -18,26 +18,20 @@
           </v-card-title>
 
           <v-card-text>
-            <!-- Loading State -->
             <div v-if="loading" class="d-flex justify-center align-center py-4">
               <v-progress-circular indeterminate color="primary"></v-progress-circular>
             </div>
 
-            <!-- Error State -->
             <div v-else-if="error" class="text-center py-4">
               <v-alert type="error" class="mx-auto" max-width="500">
                 {{ error }}
               </v-alert>
             </div>
-
-            <!-- No Results State -->
             <div v-else-if="filteredProducts.length === 0" class="text-center py-4">
               <v-alert type="info" class="mx-auto" max-width="500">
                 No products found matching your search criteria.
               </v-alert>
             </div>
-
-            <!-- Products Grid -->
             <template v-else>
               <v-row>
                 <v-col 
@@ -68,7 +62,6 @@
                 </v-col>
               </v-row>
 
-              <!-- Pagination -->
               <div class="d-flex justify-center mt-4">
                 <v-pagination
                   v-model="currentPage"
@@ -116,7 +109,6 @@ export default {
   },
   methods: {
     handleSearch() {
-      // Filter products locally based on title
       if (this.search.trim() === '') {
         this.filteredProducts = this.products;
       } else {
@@ -125,26 +117,21 @@ export default {
           product.title.toLowerCase().includes(searchTerm)
         );
       }
-      this.currentPage = 1; // Reset to first page when search changes
+      this.currentPage = 1;
     },
     handlePageChange(page) {
       this.currentPage = page;
-      // Scroll to top of the product list
       window.scrollTo({
         top: this.$el.offsetTop - 100,
         behavior: 'smooth'
       });
     },
 
-    //fetch products
     async fetchProducts() {
       this.loading = true;
       this.error = null;
 
       try {
-        //const url = "http://localhost:5000/api/products"; 
-        
-        // Fetch all products
         const response = await fetch(`${API_BASE_URL}/api/products`);
 
         if (!response.ok) {

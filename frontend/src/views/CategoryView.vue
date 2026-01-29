@@ -1,5 +1,4 @@
   <template>
-    <!-- ProductCategory component -->
     <ProductsCategory :category="$route.params.slug" />
   </template>
   

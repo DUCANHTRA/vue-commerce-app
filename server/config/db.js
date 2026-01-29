@@ -10,11 +10,6 @@ if (!MONGO_URI) {
   );
 }
 
-/**
- * Global is used here to maintain a cached connection across hot reloads
- * in development. This prevents connections from growing exponentially
- * during API Route usage.
- */
 let cached = global.mongoose;
 
 if (!cached) {
@@ -29,17 +24,15 @@ async function connectDB() {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
-      serverSelectionTimeoutMS: 10000, // Keep trying to send operations for 10 seconds
+      serverSelectionTimeoutMS: 10000,
     };
 
     cached.promise = mongoose.connect(MONGO_URI, {
-      // ✅ Forces correct DB name from .env
       dbName: "vue_ecommerce",   
       bufferCommands: false,
       serverSelectionTimeoutMS: 10000,
     }).then((mongoose) => {
       console.log("✅ New MongoDB connection established.");
-      //console.log("📦 Connected to DB:", mongoose.connection.name);
       return mongoose;
     });
   }

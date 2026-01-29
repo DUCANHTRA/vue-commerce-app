@@ -1,9 +1,6 @@
 import Product from '../models/Product.js';
 import connectDB from '../config/db.js';
 
-/**
- * Get all products or distinct categories
- */
 export const getProducts = async (req, res) => {
   try {
     await connectDB();
@@ -35,9 +32,6 @@ export const getProducts = async (req, res) => {
   }
 };
 
-/**
- * Get a product by ID
- */
 export const getProductById = async (req, res) => {
   try {
     await connectDB();
@@ -49,9 +43,6 @@ export const getProductById = async (req, res) => {
   }
 };
 
-/**
- * Create a new product
- */
 export const createProduct = async (req, res) => {
   try {
     await connectDB();
@@ -63,9 +54,6 @@ export const createProduct = async (req, res) => {
   }
 };
 
-/**
- * Update a product
- */
 export const updateProduct = async (req, res) => {
   try {
     await connectDB();
@@ -77,9 +65,6 @@ export const updateProduct = async (req, res) => {
   }
 };
 
-/**
- * Delete a product
- */
 export const deleteProduct = async (req, res) => {
   try {
     await connectDB();
@@ -92,9 +77,6 @@ export const deleteProduct = async (req, res) => {
   }
 };
 
-/**
- * Increment likes for a product
- */
 export const likeProduct = async (req, res) => {
   try {
     await connectDB();

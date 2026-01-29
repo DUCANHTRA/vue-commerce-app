@@ -5,15 +5,14 @@
         <h1>Latest News</h1>
       </div>
     </div>
-    
-    <!-- Search Section -->
+  
     <div class="row mb-4">
       <div class="col-12">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title mb-3">Search Filters</h5>
             <div class="row g-3">
-              <!-- Title Search -->
+
               <div class="col-12 col-md-6">
                 <div class="form-group">
                   <label for="titleSearch" class="form-label">Search by Title</label>
@@ -27,7 +26,6 @@
                 </div>
               </div>
 
-              <!-- Content Search -->
               <div class="col-12 col-md-6">
                 <div class="form-group">
                   <label for="contentSearch" class="form-label">Search by Content</label>
@@ -41,7 +39,6 @@
                 </div>
               </div>
 
-              <!-- Date Search -->
               <div class="col-12 col-md-6">
                 <div class="form-group">
                   <label for="dateSearch" class="form-label">Search by Date</label>
@@ -55,7 +52,6 @@
       </div>
               </div>
 
-              <!-- Category Filter -->
       <div class="col-12 col-md-6">
                 <div class="form-group">
                   <label for="categoryFilter" class="form-label">Filter by Category</label>
@@ -73,7 +69,6 @@
                 </div>
               </div>
 
-              <!-- Clear Filters Button -->
               <div class="col-12 text-end">
                 <button 
                   class="btn btn-outline-secondary" 
@@ -88,7 +83,6 @@
       </div>
     </div>
 
-    <!-- News List -->
     <div class="row g-4">
       <div v-for="item in paginatedNews" :key="item.id" class="col-12 col-md-6 col-lg-4">
         <div class="card h-100 shadow-sm">
@@ -102,7 +96,6 @@
       </div>
     </div>
 
-    <!-- No Results Message -->
     <div v-if="filteredNews.length === 0" class="row mt-4">
       <div class="col-12 text-center">
         <div class="alert alert-info">
@@ -111,7 +104,6 @@
       </div>
     </div>
 
-    <!-- Pagination -->
     <div class="row mt-4">
       <div class="col-12">
         <div class="d-flex justify-content-center align-items-center">

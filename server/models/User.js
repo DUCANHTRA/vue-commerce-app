@@ -1,4 +1,3 @@
-//models/User.js
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
@@ -9,7 +8,6 @@ const UserSchema = new mongoose.Schema({
   role: { type: String, enum: ['user', 'admin'], default: 'user' }
 });
 
-// Hash password before saving
 UserSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
 
@@ -18,7 +16,6 @@ UserSchema.pre('save', async function (next) {
   next();
 });
 
-// Method to check password
 UserSchema.methods.comparePassword = function (plainPassword) {
   return bcrypt.compare(plainPassword, this.password);
 };

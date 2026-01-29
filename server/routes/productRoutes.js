@@ -7,7 +7,6 @@ import {
 
 const router = express.Router();
 
-// Routes
 router.get('/', getProducts);
 router.get('/:id', getProductById);
 router.put('/:id/like', likeProduct);

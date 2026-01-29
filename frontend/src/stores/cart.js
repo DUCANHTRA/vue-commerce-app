@@ -7,7 +7,6 @@ export const useCartStore = defineStore("cart", {
   }),
 
   actions: {
-    //addtoCart from ProductCard.vue
     addToCart(product) {
       if (product.stock <= 0) {
         toast.error("Product is out of stock");
@@ -27,7 +26,7 @@ export const useCartStore = defineStore("cart", {
 
 
     removeFromCart(_id) {
-      this.cart = this.cart.filter(item => item._id !== _id); // Remove item with matching ID
+      this.cart = this.cart.filter(item => item._id !== _id);
       this.saveCart();
     },
 
@@ -76,7 +75,7 @@ export const useCartStore = defineStore("cart", {
       for (const item of state.cart) {
         _total += item.price * item.quantity;
       }
-      return _total.toFixed(2); // Formats total price to 2 decimal places
+      return _total.toFixed(2);
     }
   },
 });

@@ -1,17 +1,17 @@
 <template>
-  <!-- No changes to template section -->
+
 </template>
 
 <script>
 import { toast } from '@/utils/toast'
 
 export default {
-  // No changes to component options
+
 }
 </script>
 
 <style>
-  /* No changes to style section */
+
 </style>
 
 <script>
@@ -19,7 +19,6 @@ export default {
   methods: {
     async updateProduct() {
       try {
-        // Your existing update logic
         const response = await fetch(`/api/products/${this.productId}`, {
           method: 'PUT',
           body: JSON.stringify(this.product)
@@ -27,7 +26,6 @@ export default {
         
         if (response.ok) {
           toast.success('Product updated successfully!')
-          // Your existing success handling
         } else {
           toast.error('Failed to update product')
         }
@@ -44,7 +42,6 @@ export default {
         
         if (response.ok) {
           toast.success('Product deleted successfully!')
-          // Your existing success handling
         } else {
           toast.error('Failed to delete product')
         }

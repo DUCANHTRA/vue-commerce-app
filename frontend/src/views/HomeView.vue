@@ -23,7 +23,6 @@ export default {
         console.log('Received products:', data);
 
         if (data.success && data.data) {
-          // Extract unique categories
           const uniqueCategories = [...new Set(data.data.map(p => p.category))];
           this.categories = uniqueCategories;
         } else {
@@ -42,8 +41,6 @@ export default {
 <template>
   <main class="container">
     <h1 class="my-4 text-center display-4 fw-bold">Shop</h1>
-
-    <!--v pass and render category-->
     <div v-for="category in categories" :key="category">
       <ProductsCategory :category="category" show-more-btn />
     </div>
